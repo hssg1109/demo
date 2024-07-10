@@ -1,0 +1,82 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User Account</title>
+</head>
+<body>
+    <h1>증권 계좌 생성</h1>
+    <form id="accountForm">
+        <label for="accountNum">Account Number:</label>
+        <input type="text" id="accountNum" name="accountNum" required>
+        <br>
+        <label for="accountPW">Account Password:</label>
+        <input type="password" id="accountPW" name="accountPW" required>
+        <br>
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p id="responseMessage"></p>
+
+    <script>
+        document.getElementById('accountForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const accountNum = document.getElementById('accountNum').value;
+            const accountPW = document.getElementById('accountPW').value;
+
+            fetch('/noname/accounts/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'accountNum': accountNum,
+                    'accountPW': accountPW
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.accountID) {
+                    document.getElementById('responseMessage').innerText = 'Account created with ID: ' + data.accountID;
+                } else {
+                    document.getElementById('responseMessage').innerText = 'Error: Invalid response from server';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('responseMessage').innerText = 'Error creating account';
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+</head>
+<body>
+    <h1>증권 계좌 생성</h1>
+    <form action="/account/create" method="post">
+        <input type="hidden" name="userId" value="${userId}">
+        <label for="accountNum">계좌번호:</label>
+        <input type="text" id="accountNum" name="accountNum" required>
+        <br>
+        <label for="accountPW">계좌 비밀번호:</label>
+        <input type="password" id="accountPW" name="accountPW" required>
+        <br>
+        <button type="submit">Create Account</button>
+    </form>
+</body>
+</html>
